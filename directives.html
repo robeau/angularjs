@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Directives</title>
+    <script src="bower_components/angularjs/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-app="" ng-init="person={name: 'Natalie', family:'Romano'}">
+        {{person.name + ' ' + person.family}}
+
+        <div ng-init="arr=[2,3,5,8,2]">
+            <p ng-bind="arr[2]"></p>
+        </div>
+    </div>
+</body>
+</html>

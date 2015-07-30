@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-if</title>
+    <script src="bower_components/angularjs/angular.min.js"></script>
+    <style>
+        table, th, tr, td{
+            border: 1px solid black;
+            padding: 5px;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+
+<div ng-app="myApp" ng-controller="countryCtrl">
+
+    Enter a name: <input type="text" ng-model="name" />
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Capitol</th>
+            <th>Population</th>
+        </tr>
+        <tr ng-repeat="el in country | filter:name">
+            <td ng-if="$odd" style="background-color: lightblue; color: white">{{$index+1}}</td>
+            <td ng-if="$even" style="background-color: white">{{$index+1}}</td>
+            <td ng-if="$odd" style="background-color: lightblue; color: white">{{el.name}}</td>
+            <td ng-if="$even" style="background-color: white">{{el.name}}</td>
+            <td ng-if="$odd" style="background-color: lightblue; color: white">{{el.capital}}</td>
+            <td ng-if="$even" style="background-color: white">{{el.capital}}</td>
+            <td ng-if="$odd" style="background-color: lightblue; color: white">{{el.population}}</td>
+            <td ng-if="$even" style="background-color: white">{{el.population}}</td>
+        </tr>
+    </table>
+</div>
+<script>
+    var app = angular.module('myApp',[]);
+    app.controller('countryCtrl', function ($scope, $http) {
+        $http.get('package.json').success(function (res) {
+            $scope.country = res.records;
+        }).error(function (err) {
+            console.log(err);
+        });
+    });
+</script>
+</body>
+</html>

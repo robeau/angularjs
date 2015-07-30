@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Controller 2</title>
+    <script src="bower_components/angularjs/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>{{lang}}</p>
+        <p>{{framework}}</p>
+        <p>{{concat()}}</p>
+    </div>
+<script>
+    var app = angular.module('myApp',[]);
+    app.controller('myCtrl', function ($scope) {
+        $scope.lang = 'javascript';
+        $scope.framework = 'angularjs';
+        $scope.concat = function () {
+            return $scope.lang + ' with ' + $scope.framework;
+        }
+    })
+</script>
+</body>
+</html>

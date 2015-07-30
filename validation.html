@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Validation</title>
+    <script src="bower_components/angularjs/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <form action="" name="myForm" novalidate>
+            <input type="text" name="name" ng-model="name" placeholder="name" required />
+            <span style="color: red" ng-show="myForm.name.$pristine">Name is required</span><br/>
+            <input type="email" name="email" ng-model="email" placeholder="email" required />
+            <span style="color: red" ng-show="myForm.email.$dirty && myForm.email.$invalid">Email is invalid</span>
+            <span style="color: red" ng-show="myForm.email.$pristine">Email is required</span>
+            <br/>
+            <input type="submit" ng-disabled="myForm.email.$pristine || myForm.name.$pristine || myForm.email.$dirty && myForm.email.$invalid"/>
+        </form>
+    </div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {});
+</script>
+</body>
+</html>

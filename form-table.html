@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form and Table</title>
+    <script src="bower_components/angularjs/angular.min.js"></script>
+    <style>
+        
+        section{
+        }
+
+        .container1{
+            position: absolute;
+            left:0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .container2{
+            position: absolute;
+            top: 200px;
+            left:0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        form{
+            position: relative;
+            left: calc(50% - 90px);
+        }
+
+        table{
+            position: relative;
+            left: calc(50% - 160px);
+        }
+
+        div > input{
+            position: relative;
+            left: calc(50% - 90px);
+        }
+
+        header{
+            text-align: center;
+        }
+
+        table, th, tr, td{
+            border: 1px solid black;
+            padding: 5px;
+            border-collapse: collapse;
+        }
+
+        table tr:nth-child(odd){
+            background-color: lightblue;
+            color: white;
+        }
+        table tr:nth-child(even){
+            background-color: white;
+        }
+
+        p{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <section>
+        <header>
+            <h1>Add a User:</h1>
+        </header>
+        <div class="container1">
+            <form action="" name="myForm" novalidate>
+                <input type="text" name="name" ng-model="name" placeholder="name" required />
+                <span style="color: red" ng-show="myForm.name.$pristine">Name is required</span><br/>
+                <input type="email" name="email" ng-model="email" placeholder="email" required />
+                <span style="color: red" ng-show="myForm.email.$dirty && myForm.email.$invalid">Email is invalid</span>
+                <span style="color: red" ng-show="myForm.email.$pristine">Email is required</span><br/>
+                <input type="tel" name="tel" ng-model="tel" placeholder="tel" required />
+                <span style="color: red" ng-show="myForm.tel.$dirty && myForm.tel.$invalid">Tel is invalid</span>
+                <span style="color: red" ng-show="myForm.tel.$pristine">Tel is required</span><br/>
+                <button>Reset</button>
+                <input ng-click="addUser()" type="button" value="Submit" ng-disabled="myForm.tel.$pristine || myForm.email.$pristine || myForm.name.$pristine || myForm.email.$dirty && myForm.email.$invalid"/>
+            </form>
+            <p ng-show="user_array.length === 0">There are no users yet. Add users to enable the search feature.</p>
+        </div>
+    </section>
+    <section ng-show="user_array.length > 0">
+        <div class="container2">
+        <header>
+            <h1>Search for a user</h1>
+        </header>
+            <input type="text" placeholder="start typing" ng-model="people" />
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Tel</th>
+                </tr>
+                <tr ng-repeat="el in user_array | filter:people">
+                    <td>{{el.name}}</td>
+                    <td>{{el.email}}</td>
+                    <td>{{el.tel}}</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+        $scope.user_array = [];
+        $scope.addUser = function () {
+            console.log('adding user ... ')
+            var form = document.forms.myForm;
+            var person = {
+                name: form.name.value,
+                email: form.email.value,
+                tel: form.tel.value
+            }
+            $scope.user_array.push(person);
+            console.log($scope.user_array);
+        }
+    });
+</script>
+</body>
+</html>

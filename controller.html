@@ -2,9 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Controller</title>
+    <script src="bower_components/angularjs/angular.min.js"></script>
+    <script src="fruitCtrl.js"></script>
+    <style>
+        table, th, tr, td{
+            border: 1px solid black;
+            padding: 5px;
+            border-collapse: collapse;
+        }
+
+        table tr:nth-child(odd){
+            background-color: lightblue;
+            color: white;
+        }
+        table tr:nth-child(even){
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
 
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <div>
+        Enter a fruit name: <input type="text" ng-model="fruit" />
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Flavor</th>
+                <th>Price</th>
+            </tr>
+            <tr ng-repeat="el in fruits | filter:fruit">
+                <td>{{$index+1}}</td>
+                <td>{{el.flavor}}</td>
+                <td>{{el.price | currency}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
 </body>
 </html>
